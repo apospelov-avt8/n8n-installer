@@ -78,6 +78,7 @@ Get started quickly with a vast library of pre-built automations (optional impor
 3.  **Server:** Minimum server system requirements: Ubuntu 24.04 LTS, 64-bit.
     - For running **all available services**: at least **8 GB Memory / 4 CPU Cores / 60 GB Disk Space **.
     - For a minimal setup with only **n8n and Flowise**: **4 GB Memory / 2 CPU Cores / 30 GB Disk Space**.
+4. **custom-certificates:** If you need custom certs, prepare it on **/srv/n8n/custom-certificates**
 
 ### Running the Installer
 
@@ -87,7 +88,7 @@ The recommended way to install is using the provided main installation script.
 2.  Run the following command:
 
     ```bash
-    git clone https://github.com/kossakovsky/n8n-installer && cd n8n-installer && sudo bash ./scripts/install.sh
+    git clone https://github.com/apospelov-avt8/n8n-installer && cd n8n-installer && sudo bash ./scripts/install.sh
     ```
 
 This single command automates the entire setup process, including:
