@@ -434,11 +434,11 @@ services:
     volumes:
       - ./squid/squid.conf:/etc/squid/squid.conf:ro
     healthcheck:
-    test: ["CMD", "timeout", "5", "bash", "-c", "cat < /dev/null > /dev/tcp/localhost/3128"]
-    interval: 10s
-    timeout: 5s
-    retries: 3
-    start_period: 15s
+      test: ["CMD", "timeout", "5", "bash", "-c", "cat < /dev/null > /dev/tcp/localhost/3128"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
     
   redis:
     container_name: redis
