@@ -428,13 +428,12 @@ services:
       # TODO: Rename to postgres_data
       - langfuse_postgres_data:/var/lib/postgresql/data
 
-squid:
+  squid:
     image: ubuntu/squid:latest
     restart: unless-stopped
     volumes:
       - ./squid/squid.conf:/etc/squid/squid.conf:ro
-    # Порты наружу НЕ публикуем — он нужен только внутри сети compose
-
+    
   redis:
     container_name: redis
     image: docker.io/valkey/valkey:8-alpine
