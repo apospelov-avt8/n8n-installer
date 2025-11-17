@@ -76,6 +76,9 @@ x-n8n: &service-n8n
     QUEUE_BULL_REDIS_PORT: ${REDIS_PORT:-6379}
     QUEUE_HEALTH_CHECK_ACTIVE: true
     WEBHOOK_URL: ${N8N_HOSTNAME:+https://}${N8N_HOSTNAME:-http://localhost:5678}/
+    HTTP_PROXY: http://squid:3128
+    HTTPS_PROXY: http://squid:3128
+    NO_PROXY: localhost,127.0.0.1,::1
 
 x-ollama: &service-ollama
   image: ollama/ollama:latest
@@ -142,6 +145,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      squid:
+        condition: service_healthy
 
   n8n:
     <<: *service-n8n
@@ -170,6 +175,8 @@ services:
       redis:
         condition: service_healthy
       postgres:
+        condition: service_healthy
+      squid:
         condition: service_healthy
     deploy:
       replicas: ${N8N_WORKER_COUNT:-1}
@@ -420,6 +427,13 @@ services:
     volumes:
       # TODO: Rename to postgres_data
       - langfuse_postgres_data:/var/lib/postgresql/data
+
+squid:
+    image: ubuntu/squid:latest
+    restart: unless-stopped
+    volumes:
+      - ./squid/squid.conf:/etc/squid/squid.conf:ro
+    # Порты наружу НЕ публикуем — он нужен только внутри сети compose
 
   redis:
     container_name: redis
